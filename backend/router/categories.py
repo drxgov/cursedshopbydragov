@@ -11,13 +11,13 @@ from sqlalchemy.orm import Session
 router = APIRouter(prefix="/category", tags=["categories"])
 
 
-@router.get("/get_categories")
+@router.get("/get_info")
 async def get_categories(db: Session = Depends(get_db)):
     categories = db.query(Category).all()
     return categories
 
 
-@router.post("/create_category")
+@router.post("/create")
 async def create_category(
     category: CategoryCreate,
     db: Session = Depends(get_db),
@@ -32,7 +32,7 @@ async def create_category(
     return {"message": "категория успешно создана"}
 
 
-@router.get("/get_category_by_id/{category_id}", response_model=CategoryRead)
+@router.get("/get_by_id/{category_id}", response_model=CategoryRead)
 async def get_category_by_id(category_id: int, db: Session = Depends(get_db)):
     category = db.query(Category).filter(Category.id == category_id).first()
     if not category:
@@ -40,7 +40,7 @@ async def get_category_by_id(category_id: int, db: Session = Depends(get_db)):
     return category
 
 
-@router.delete("/delete_category/{category_id}")
+@router.delete("/delete/{category_id}")
 async def delete_category(
     category_id: int, db: Session = Depends(get_db), user: User = Depends(check_admin)
 ):
@@ -52,7 +52,7 @@ async def delete_category(
     return {"message": "категория успешно удалена"}
 
 
-@router.patch("/update_category/{category_id}")
+@router.patch("/update/{category_id}")
 async def update_category(
     category_id: int,
     categoryupdate: CategoryUpdate,

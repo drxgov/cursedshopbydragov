@@ -11,7 +11,7 @@ class Product(Base):
     description: Mapped[str] = mapped_column(String(255), nullable=True)
     price: Mapped[int] = mapped_column(Integer, nullable=False)
     count: Mapped[int] = mapped_column(Integer, nullable=False)
-    is_available: Mapped[bool] = mapped_column(Boolean, nullable=False, default=True)
+    is_available: Mapped[bool] = mapped_column(Boolean, default=True)
     image_source: Mapped[str] = mapped_column(String(255), nullable=True)
 
     seller_id: Mapped[int] = mapped_column(ForeignKey("users.id"))
@@ -19,3 +19,5 @@ class Product(Base):
 
     category_id: Mapped[int] = mapped_column(ForeignKey("categories.id"))
     category: Mapped["Category"] = relationship(back_populates="products")
+
+    cart_items: Mapped[list["CartItem"]] = relationship(back_populates="product")

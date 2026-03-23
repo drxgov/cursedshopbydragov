@@ -9,7 +9,7 @@ from sqlalchemy.orm import Session
 router = APIRouter(prefix="/users", tags=["user"])
 
 
-@router.get("/user_info", response_model=UserRead)
+@router.get("/info", response_model=UserRead)
 async def get_user_info(
     db: Session = Depends(get_db), user: User = Depends(get_current_user)
 ):
@@ -19,7 +19,7 @@ async def get_user_info(
     return user_info
 
 
-@router.get("/all_user_info")
+@router.get("/all_info", response_model=list[UserRead])
 async def get_all_users_info(
     db: Session = Depends(get_db), user: User = Depends(check_admin)
 ):
@@ -27,7 +27,7 @@ async def get_all_users_info(
     return user_info
 
 
-@router.get("/user_info_by_id/{user_id}", response_model=UserRead)
+@router.get("/info_by_id/{user_id}", response_model=UserRead)
 async def get_user_info_by_id(
     user_id: int, db: Session = Depends(get_db), user: User = Depends(check_admin)
 ):
@@ -39,7 +39,7 @@ async def get_user_info_by_id(
     return user_info
 
 
-@router.patch("/update_user_info")
+@router.patch("/update_info")
 async def update_user_info(
     user_update: UserUpdate,
     db: Session = Depends(get_db),
@@ -56,7 +56,7 @@ async def update_user_info(
     return {"message": "данные успешно обновлены"}
 
 
-@router.patch("/change_user_role/{user_id}")
+@router.patch("/change_role/{user_id}")
 async def change_user_role(
     user_id: int,
     change_role: UserChangeRole,

@@ -20,6 +20,8 @@ class UserRead(BaseModel):
     email: EmailStr
     role: str
 
+    model_config = {"from_attributes": True}
+
 
 class UserUpdate(BaseModel):
     name: str | None = None

@@ -10,7 +10,7 @@ from sqlalchemy.orm import Session
 router = APIRouter(prefix="/product", tags=["Products"])
 
 
-@router.get("/all_products")
+@router.get("/get_all")
 async def get_all_products(db: Session = Depends(get_db)):
     products = db.query(Product).all()
     if not products:
@@ -18,7 +18,7 @@ async def get_all_products(db: Session = Depends(get_db)):
     return products
 
 
-@router.post("/create_product")
+@router.post("/create")
 async def create_product(
     product: ProductCreate,
     db: Session = Depends(get_db),
@@ -34,7 +34,7 @@ async def create_product(
     return {"message": "товар успешно создан", "product": new_product}
 
 
-@router.get("/get_product_by_id/{product_id}")
+@router.get("/get_by_id/{product_id}")
 async def get_product_by_id(product_id: int, db: Session = Depends(get_db)):
     product = db.query(Product).filter(Product.id == product_id).first()
     if not product:
@@ -42,7 +42,7 @@ async def get_product_by_id(product_id: int, db: Session = Depends(get_db)):
     return product
 
 
-@router.get("/get_product_by_seller_id/{seller_id}")
+@router.get("/get_by_seller_id/{seller_id}")
 async def get_product_by_seller_id(seller_id: int, db: Session = Depends(get_db)):
     product = db.query(Product).filter(Product.seller_id == seller_id).all()
     if not product:
@@ -52,7 +52,7 @@ async def get_product_by_seller_id(seller_id: int, db: Session = Depends(get_db)
     return product
 
 
-@router.get("/get_product_by_category_id/{category_id}")
+@router.get("/get_by_category_id/{category_id}")
 async def get_product_by_category_id(category_id: int, db: Session = Depends(get_db)):
     product = db.query(Product).filter(Product.category_id == category_id).all()
     if not product:
@@ -62,7 +62,7 @@ async def get_product_by_category_id(category_id: int, db: Session = Depends(get
     return product
 
 
-@router.delete("/delede_product/{product_id}")
+@router.delete("/delete/{product_id}")
 async def delete_product(
     product_id: int, db: Session = Depends(get_db), user: User = Depends(check_seller)
 ):
@@ -74,7 +74,7 @@ async def delete_product(
     return {"message": "данный товар удален"}
 
 
-@router.patch("/update_product/{product_id}")
+@router.patch("/update/{product_id}")
 async def update_product(
     product_id: int,
     product_up: ProductUpdate,
