@@ -1,0 +1,41 @@
+# Python
+__pycache__/
+*.py[cod]
+*.pyo
+.venv/
+venv/
+env/
+
+# База данных
+*.db
+*.sqlite3
+
+# Переменные окружения
+.env
+.env.local
+.env.*.local
+
+# Alembic (не игнорируем versions)
+alembic/versions/ — коммитим миграции
+
+# Node
+node_modules/
+frontend/node_modules/
+
+# Vite build
+frontend/dist/
+frontend/.vite/
+
+# Логи
+*.log
+npm-debug.log*
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# OS
+.DS_Store
+Thumbs.db
