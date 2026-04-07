@@ -1,5 +1,3 @@
-from cmath import e
-
 from pydantic import BaseModel, EmailStr
 
 
